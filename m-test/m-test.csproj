@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\m-test.DAL\m-test.DAL.csproj" />
+    <ProjectReference Include="..\m-test.MongoDB\m-test.MongoDB.csproj" />
   </ItemGroup>
 
 </Project>
