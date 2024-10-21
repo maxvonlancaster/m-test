@@ -1,5 +1,9 @@
 using m_test.DAL;
+using m_test.MongoDB;
+using m_test.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +21,18 @@ builder.Services.AddDbContext<LabDbContext>(options =>
     }
     ) ;
 ;
+
+builder.Services.Configure<MongoDBSettings>(
+    builder.Configuration.GetSection("MongoDBSettings"));
+
+builder.Services.AddSingleton<IMongoClient>(s =>
+{
+    var settings = s.GetRequiredService<IOptions<MongoDBSettings>>().Value;
+    return new MongoClient(settings.ConnectionString);
+});
+
+builder.Services.AddTransient<IStudentService, StudentService>();
+builder.Services.AddHostedService<UpdateService>();
 
 var app = builder.Build();
 
