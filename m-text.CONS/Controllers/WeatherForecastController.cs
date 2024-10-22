@@ -1,14 +1,11 @@
-using m_test.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace m_test.Controllers
+namespace m_text.CONS.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private ProducerService _producerService;
-
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -16,18 +13,14 @@ namespace m_test.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger,
-            ProducerService producerService)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
-            _producerService = producerService;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public async Task<IEnumerable<WeatherForecast>> Get()
+        public IEnumerable<WeatherForecast> Get()
         {
-            await _producerService.ProduceAsync("hello", "1");
-
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),

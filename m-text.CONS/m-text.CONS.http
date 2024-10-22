@@ -1,0 +1,6 @@
+@m_text.CONS_HostAddress = http://localhost:5249
+
+GET {{m_text.CONS_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -32,7 +32,8 @@ builder.Services.AddSingleton<IMongoClient>(s =>
 });
 
 builder.Services.AddTransient<IStudentService, StudentService>();
-builder.Services.AddHostedService<UpdateService>();
+//builder.Services.AddHostedService<UpdateService>();
+builder.Services.AddSingleton<ProducerService>();
 
 var app = builder.Build();
 
